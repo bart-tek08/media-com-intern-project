@@ -1,56 +1,96 @@
 {% extends 'partials/base.html.twig' %}
 
 {% set show_onpage_menu = header.onpage_menu == true or header.onpage_menu is null %}
-{% macro pageLinkName(text) %}{{ text|lower|replace({' ':'_'}) }}{% endmacro %}
+{% macro pageLinkName(text) %}{{ text|lower|replace({' ':'-'}) }}{% endmacro %}
 
-{% block javascripts %}
-    {% if show_onpage_menu %}
-        {% do assets.add('theme://js/singlePageNav.min.js') %}
-    {% endif %}
-    {{ parent() }}
-{% endblock %}
-
-
-{% block bottom %}
-    {{ parent() }}
-    {% if show_onpage_menu %}
-        <script>
-        // singlePageNav initialization & configuration
-        $('#navbar').singlePageNav({
-            offset: $('#header').outerHeight(),
-            filter: ':not(.external)',
-            updateHash: true,
-            currentClass: 'active'
-        });
-        </script>
-    {% endif %}
-{% endblock %}
-
+{# NADPISUJEMY NAWIGACJĘ TYLKO DLA TEJ STRONY #}
 {% block header_navigation %}
     {% if show_onpage_menu %}
-        <ul class="navigation">
-        {% for module in page.collection() %}
-            {% set current_module = (module.active or module.activeChild) ? 'active' : '' %}
-            <li class="{{ current_module }}"><a href="#{{ _self.pageLinkName(module.menu) }}">{{ module.menu }}</a></li>
-        {% endfor %}
-        {% for mitem in site.menu %}
-            <li>
-                <a {% if mitem.class %}class="{{ mitem.class }}"{% endif %} href="{{ mitem.url }}">
-                    {% if mitem.icon %}<i class="fa fa-{{ mitem.icon }}"></i>{% endif %}
-                    {{ mitem.text }}
-                </a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        {{  parent() }}
+        <style>
+  .side-nav-fixed {
+        position: fixed;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* STAN DOMYŚLNY - Tekst zawsze biały */
+    .side-nav-fixed a {
+        background: #0056b3; /* Ten niebieski co masz teraz */
+        color: #1bb3e9 !important; /* Wymuszona biel czcionki */
+        padding: 15px 25px;
+        text-decoration: none !important;
+        border-radius: 8px;
+        font-weight: 800;
+        min-width: 160px;
+        text-align: center;
+        transition: 0.3s ease;
+        font-size: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        display: block;
+    }
+
+    /* STAN PO NAJECHANIU - Niebieski robi się odrobinę lżejszy, tekst biały */
+    .side-nav-fixed a:hover { 
+        background: #1bb3e9 !important; 
+        color: #ffffff !important;
+        transform: translateX(10px);
+    }
+
+    /* STAN KLIKNIĘTY / AKTYWNY - Ciemniejszy niebieski, tekst biały */
+    .side-nav-fixed a.active,
+    .side-nav-fixed a:active,
+    .side-nav-fixed a:focus {
+        background: #003d80 !important; /* Wyraźnie ciemniejszy odcień */
+        color: #ffffff !important;      /* Tekst nadal biały */
+        box-shadow: inset 0 3px 7px rgba(0,0,0,0.4) !important; /* Efekt wciśnięcia */
+        transform: translateX(5px);
+    }
+
+        </style>
+
+        <nav class="side-nav-fixed">
+            {% for module in page.collection() %}
+                <a href="#{{ _self.pageLinkName(module.menu) }}">{{ module.menu }}</a>
+            {% endfor %}
+        </nav>
     {% endif %}
+    
+    {# Zachowujemy też oryginalne menu górne, żeby nie zniknęło całkowicie #}
+    {{ parent() }}
 {% endblock %}
 
 {% block content %}
-    {{ page.content|raw }}
-    {% for module in page.collection() %}
-        <div id="{{ _self.pageLinkName(module.menu) }}"></div>
-        {{ module.content|raw }}
-    {% endfor %}
+    <div class="modular-page">
+        <div class="container" style="padding-top: 50px;">
+            {{ page.content|raw }}
+        </div>
+        
+        {% for module in page.collection() %}
+            <div id="{{ _self.pageLinkName(module.menu) }}" class="modular-section" style="padding: 80px 0; border-bottom: 1px solid #eee;">
+                <div class="container">
+                    {{ module.content|raw }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            var target = $(this.hash);
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 20
+                }, 800);
+            }
+        });
+    });
+    </script>
 {% endblock %}

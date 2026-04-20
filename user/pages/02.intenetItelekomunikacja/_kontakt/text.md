@@ -2,6 +2,7 @@
 title: Kontakt
 menu: Kontakt
 process:
+    markdown: true
     twig: true
 ---
 
@@ -12,6 +13,7 @@ process:
         <h3 style="margin: 0; color: #0056b3;">Piotr Szymura</h3>
         <p style="margin: 5px 0; font-weight: bold;">Sales Director</p>
         <p style="margin: 0;">📞 516-185-144</p>
+        <p style="margin: 0;">☎ 32 325-05-80</p>
         <p style="margin: 0;">📧 piotr.szymura@media-com.com.pl</p>
     </div>
 </div>

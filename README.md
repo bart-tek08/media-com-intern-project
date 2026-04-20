@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ![](https://avatars1.githubusercontent.com/u/8237355?v=2&s=50) Grav
 
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
@@ -154,3 +155,7 @@ To run phpstan tests, you should run:
 * `composer phpstan` for global tests
 * `composer phpstan-framework` for more strict tests
 * `composer phpstan-plugins` to test all installed plugins
+=======
+# media-com-intern-project
+Strona oparta na CMS
+>>>>>>> 6a9c25dfbb78d84322b04b073aee764b00c542dc

@@ -1,0 +1,9 @@
+/cache/*
+/assets/*
+/images/*
+/tmp/*
+/backup/*
+/logs/*
+.DS_Store
+/node_modules
+/vendor

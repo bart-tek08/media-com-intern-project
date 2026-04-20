@@ -1,0 +1,11 @@
+state: enabled
+email: bachul.bartosz@gmail.com
+fullname: 'Bartosz Bachul'
+title: Admin
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+hashed_password: $2y$10$DXmtzIi2dMEMKjVaS.27uu8H5/wKIuqVI3GIRXNmb1.jJbiGravSW

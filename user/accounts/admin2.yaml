@@ -1,0 +1,16 @@
+state: enabled
+email: szymon.fidor2@gmail.com
+fullname: 'admin adminowski'
+title: Admin
+language: en
+content_editor: default
+twofa_enabled: false
+twofa_secret: IAOWQLZQSNEOSJ3XEWF5LTEG36D67RSZ
+avatar: {  }
+hashed_password: $2y$10$IszBktD6ZHEvllyVcuS0dO8ij8Mnb0R8qma.pYr9G/jxGmMhuAcsS
+access:
+  site:
+    login: true
+  admin:
+    login: true
+    super: true

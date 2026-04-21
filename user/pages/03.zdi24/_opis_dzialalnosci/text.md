@@ -1,6 +1,6 @@
 ---
 title: 'Opis działalności'
-menu: 'Opis działalności'
+menu: 'Opis dzialalnosci'
 ---
 
 ## Opis

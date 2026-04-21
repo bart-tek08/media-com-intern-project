@@ -1,42 +1,27 @@
 ---
 title: Home
 body_classes: 'title-center title-h1h2'
+process:
+    twig: true
 ---
 
-# Say Hello to Me!
-## installation successful...
+<div style="text-align: center; max-width: 800px; margin: 50px auto; padding: 20px; font-family: 'Helvetica Neue', sans-serif;">
 
-Congratulations! You have installed the **Base Grav Package** that provides a **simple page** and the default **Quark** theme to get you started.
+    {# TUTAJ ZMIENIŁEM NAZWĘ PLIKU NA firma_refined.png #}
+    <img src="{{ url('theme://images/firma_refined.png') }}" alt="Media-Com" style="width: 300px; margin-bottom: 30px;">
 
-!! If you see a **404 Error** when you click `Typography` in the menu, please refer to the [troubleshooting guide](http://learn.getgrav.org/troubleshooting/page-not-found).
+    <div style="font-size: 1.2rem; line-height: 1.6; color: #555; margin-bottom: 40px;">
+        Media-Com to grupa marek, których wspólnym celem jest dostarczanie najwyższej jakości rozwiązań w ramach własnej działalności oraz synergiczne korzystanie z wiedzy, doświadczenia i kompetencji poszczególnych firm.
+    </div>
 
-### Find out all about Grav
+    <div style="margin-bottom: 30px; color: #333;">
+        <p style="font-weight: bold; font-size: 1.1rem; margin-bottom: 5px;">Media-Com Sp. z o.o.</p>
+        <p style="margin: 0;">ul. Długa 19, 43-100 Tychy</p>
+    </div>
 
-* Learn about **Grav** by checking out our dedicated [Learn Grav](http://learn.getgrav.org) site.
-* Download **plugins**, **themes**, as well as other Grav **skeleton** packages from the [Grav Downloads](http://getgrav.org/downloads) page.
-* Check out our [Grav Development Blog](http://getgrav.org/blog) to find out the latest goings on in the Grav-verse.
+    <div style="font-size: 1.1rem;">
+        <p style="margin: 5px 0;">tel. <a href="tel:+48323250580" style="color: #0056b3; text-decoration: none; font-weight: bold;">32 325 05 80</a></p>
+        <p style="margin: 5px 0;"><a href="mailto:info@media-com.com.pl" style="color: #0056b3; text-decoration: none;">info@media-com.com.pl</a></p>
+    </div>
 
-!!! If you want a more **full-featured** base install, you should check out [**Skeleton** packages available in the downloads](http://getgrav.org/downloads).
-
-### Edit this Page
-
-To edit this page, simply navigate to the folder you installed **Grav** into, and then browse to the `user/pages/01.home` folder and open the `default.md` file in your [editor of choice](http://learn.getgrav.org/basics/requirements).  You will see the content of this page in [Markdown format](http://learn.getgrav.org/content/markdown).
-
-### Create a New Page
-
-Creating a new page is a simple affair in **Grav**.  Simply follow these simple steps:
-
-1. Navigate to your pages folder: `user/pages/` and create a new folder.  In this example, we will use [explicit default ordering](http://learn.getgrav.org/content/content-pages) and call the folder `03.mypage`.
-2. Launch your text editor and paste in the following sample code:
-
-        ---
-        title: My New Page
-        ---
-        # My New Page!
-
-        This is the body of **my new page** and I can easily use _Markdown_ syntax here.
-
-3. Save this file in the `user/pages/03.mypage/` folder as `default.md`. This will tell **Grav** to render the page using the **default** template.
-4. That is it! Reload your browser to see your new page in the menu.
-
-! NOTE: The page will automatically show up in the Menu after the "Typography" menu item. If you wish to change the name that shows up in the Menu, simple add: `menu: My Page` between the dashes in the page content. This is called the YAML front matter, and it is where you configure page-specific options.
+</div>

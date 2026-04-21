@@ -9,5 +9,7 @@ custom_css:
 media_order: zdi24.jpg
 ---
 
+<h1 style="color: #003d80; font-weight: 800; text-align: center; margin-bottom: 20px;">
 # Media-Com ZDI24
+    </h1>
 ZDI24 Sp. z o.o. świadczy usługi szeroko pojętej obsługi informatycznej dla firm i instytucji.

@@ -1,7 +1,8 @@
 ---
-title: Home
+title: 'Strona Główna'
 body_classes: 'title-center title-h1h2'
 process:
+    markdown: true
     twig: true
 ---
 

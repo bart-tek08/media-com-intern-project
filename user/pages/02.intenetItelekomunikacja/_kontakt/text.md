@@ -15,5 +15,12 @@ process:
         <p style="margin: 0;">📞 516-185-144</p>
         <p style="margin: 0;">☎ 32 325-05-80</p>
         <p style="margin: 0;">📧 piotr.szymura@media-com.com.pl</p>
+        
+        <p style="margin: 15px 0 5px 0; color: #0056b3; font-weight: bold;">Dane teleadresowe</p>
+        <p style="margin: 0;">Media-Com Sp. z o.o.</p>
+        <p style="margin: 0;">43-100 Tychy, ul. Długa 19</p>
+        <p style="margin: 0;">NIP: 646-25-04-548</p>
+        <p style="margin: 0;">REGON: 277497508</p>
+        <p style="margin: 0;">KRS: 200157</p>
     </div>
 </div>

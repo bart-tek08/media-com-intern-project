@@ -1,56 +1,69 @@
 {% extends 'partials/base.html.twig' %}
 
 {% set show_onpage_menu = header.onpage_menu == true or header.onpage_menu is null %}
-{% macro pageLinkName(text) %}{{ text|lower|replace({' ':'-'}) }}{% endmacro %}
+{% macro pageLinkName(text) %}{{ text|lower|replace({' ':'-', 'ą':'a', 'ć':'c', 'ę':'e', 'ł':'l', 'ń':'n', 'ó':'o', 'ś':'s', 'ź':'z', 'ż':'z'}) }}{% endmacro %}
 
 {# NADPISUJEMY NAWIGACJĘ TYLKO DLA TEJ STRONY #}
 {% block header_navigation %}
     {% if show_onpage_menu %}
         <style>
-  .side-nav-fixed {
-        position: fixed;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+            /* Menu boczne - desktop */
+            .side-nav-fixed {
+                position: fixed;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 9999;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
 
-    /* STAN DOMYŚLNY - Tekst zawsze biały */
-    .side-nav-fixed a {
-        background: #0056b3; /* Ten niebieski co masz teraz */
-        color: #1bb3e9 !important; /* Wymuszona biel czcionki */
-        padding: 15px 25px;
-        text-decoration: none !important;
-        border-radius: 8px;
-        font-weight: 800;
-        min-width: 160px;
-        text-align: center;
-        transition: 0.3s ease;
-        font-size: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        display: block;
-    }
+            .side-nav-fixed a {
+                background: #0056b3;
+                color: #ffffff !important;
+                padding: 15px 25px;
+                text-decoration: none !important;
+                border-radius: 8px;
+                font-weight: 800;
+                min-width: 160px;
+                text-align: center;
+                transition: 0.3s ease;
+                font-size: 16px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                display: block;
+            }
 
-    /* STAN PO NAJECHANIU - Niebieski robi się odrobinę lżejszy, tekst biały */
-    .side-nav-fixed a:hover { 
-        background: #1bb3e9 !important; 
-        color: #ffffff !important;
-        transform: translateX(10px);
-    }
+            .side-nav-fixed a:hover { 
+                background: #1bb3e9 !important; 
+                color: #ffffff !important;
+                transform: translateX(10px);
+            }
 
-    /* STAN KLIKNIĘTY / AKTYWNY - Ciemniejszy niebieski, tekst biały */
-    .side-nav-fixed a.active,
-    .side-nav-fixed a:active,
-    .side-nav-fixed a:focus {
-        background: #003d80 !important; /* Wyraźnie ciemniejszy odcień */
-        color: #ffffff !important;      /* Tekst nadal biały */
-        box-shadow: inset 0 3px 7px rgba(0,0,0,0.4) !important; /* Efekt wciśnięcia */
-        transform: translateX(5px);
-    }
+            .side-nav-fixed a.active {
+                background: #003d80 !important;
+            }
 
+            /* UKRYWANIE MENU BOCZNEGO NA URZĄDZENIACH MOBILNYCH */
+            @media (max-width: 992px) {
+                .side-nav-fixed {
+                    display: none !important;
+                }
+            }
+
+            /* RESPONSYWNE WIZYTÓWKI KONTAKTOWE */
+            @media (max-width: 600px) {
+                .contact-card {
+                    flex-direction: column !important;
+                    text-align: center;
+                    align-items: center !important;
+                }
+                .contact-card div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
         </style>
 
         <nav class="side-nav-fixed">
@@ -60,7 +73,6 @@
         </nav>
     {% endif %}
     
-    {# Zachowujemy też oryginalne menu górne, żeby nie zniknęło całkowicie #}
     {{ parent() }}
 {% endblock %}
 
@@ -78,14 +90,17 @@
             </div>
         {% endfor %}
     </div>
+{% endblock %}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% block bottom %}
+    {{ parent() }}
     <script>
     $(document).ready(function(){
+        // Obsługa płynnego przewijania do sekcji
         $('a[href^="#"]').on('click', function(e) {
-            e.preventDefault();
             var target = $(this.hash);
             if (target.length) {
+                e.preventDefault();
                 $('html, body').animate({
                     scrollTop: target.offset().top - 20
                 }, 800);

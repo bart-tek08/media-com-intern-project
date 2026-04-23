@@ -3,87 +3,74 @@
 {% set show_onpage_menu = header.onpage_menu == true or header.onpage_menu is null %}
 {% macro pageLinkName(text) %}{{ text|lower|replace({' ':'-', 'ą':'a', 'ć':'c', 'ę':'e', 'ł':'l', 'ń':'n', 'ó':'o', 'ś':'s', 'ź':'z', 'ż':'z'}) }}{% endmacro %}
 
-{# NADPISUJEMY NAWIGACJĘ TYLKO DLA TEJ STRONY #}
+{# NADPISUJEMY NAWIGACJĘ - USUNIĘTO SIDE-NAV #}
 {% block header_navigation %}
-    {% if show_onpage_menu %}
-        <style>
-            /* Menu boczne - desktop */
-            .side-nav-fixed {
-                position: fixed;
-                left: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 9999;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
+    <style>
 
-            .side-nav-fixed a {
-                background: #0056b3;
-                color: #ffffff !important;
-                padding: 15px 25px;
-                text-decoration: none !important;
-                border-radius: 8px;
-                font-weight: 800;
-                min-width: 160px;
-                text-align: center;
-                transition: 0.3s ease;
-                font-size: 16px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                display: block;
-            }
 
-            .side-nav-fixed a:hover { 
-                background: #1bb3e9 !important; 
-                color: #ffffff !important;
-                transform: translateX(10px);
-            }
+    /* 2. TWOJE BAZOWE USTAWIENIA */
+    body {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        background-color: #f4f4f7 !important;
+    }
 
-            .side-nav-fixed a.active {
-                background: #003d80 !important;
-            }
+    p {
+        margin-bottom: 8px !important;
+        font-size: 14px !important;
+    }
 
-            /* UKRYWANIE MENU BOCZNEGO NA URZĄDZENIACH MOBILNYCH */
-            @media (max-width: 992px) {
-                .side-nav-fixed {
-                    display: none !important;
-                }
-            }
+    /* 3. MNIEJSZE NAGŁÓWKI (Zablokowanie wzrostu czcionki) */
+    h1 { font-size: 1.8rem !important; margin: 0 0 10px 0 !important; }
+    h2 { font-size: 1.5rem !important; margin: 0 0 8px 0 !important; padding-top: 0 !important; }
+    h3 { font-size: 1.2rem !important; margin: 0 0 6px 0 !important; }
 
-            /* RESPONSYWNE WIZYTÓWKI KONTAKTOWE */
-            @media (max-width: 600px) {
-                .contact-card {
-                    flex-direction: column !important;
-                    text-align: center;
-                    align-items: center !important;
-                }
-                .contact-card div {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-            }
-        </style>
+    /* 4. REDUKCJA PUSTEGO MIEJSCA */
+    .modular-page { padding-top: 10px !important; }
+    
+    .modular-section {
+        padding: 5px 0 !important; 
+        border-bottom: none !important;
+    }
 
-        <nav class="side-nav-fixed">
-            {% for module in page.collection() %}
-                <a href="#{{ _self.pageLinkName(module.menu) }}">{{ module.menu }}</a>
-            {% endfor %}
-        </nav>
-    {% endif %}
+    /* BIAŁE KARTY (Naprawa paddingu wewnętrznego) */
+    .modular-section .container, .modular-page > .container:first-child {
+        background: #ffffff;
+        padding: 15px 25px !important; /* Zmniejszone, żeby karta nie była "puchata" */
+        border-radius: 15px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* 5. FIX DLA LIST (tych z ikonkami) */
+    ul {
+        margin: 5px 0 !important;
+        padding-left: 25px !important;
+    }
+    li {
+        margin-bottom: 5px !important;
+    }
+
+    /* RESPONSYWNOŚĆ KONTAKTU */
+    @media (max-width: 600px) {
+        .contact-card { flex-direction: column !important; text-align: center; }
+        .contact-card div { display: flex; flex-direction: column; align-items: center; }
+    }
+</style>
     
     {{ parent() }}
 {% endblock %}
 
 {% block content %}
     <div class="modular-page">
-        <div class="container" style="padding-top: 50px;">
+        {# Główna treść strony (jeśli istnieje) #}
+        <div class="container">
             {{ page.content|raw }}
         </div>
         
+        {# Sekcje modularne jako osobne karty #}
         {% for module in page.collection() %}
-            <div id="{{ _self.pageLinkName(module.menu) }}" class="modular-section" style="padding: 80px 0; border-bottom: 1px solid #eee;">
+            <div id="{{ _self.pageLinkName(module.menu) }}" class="modular-section">
                 <div class="container">
                     {{ module.content|raw }}
                 </div>
@@ -94,18 +81,4 @@
 
 {% block bottom %}
     {{ parent() }}
-    <script>
-    $(document).ready(function(){
-        // Obsługa płynnego przewijania do sekcji
-        $('a[href^="#"]').on('click', function(e) {
-            var target = $(this.hash);
-            if (target.length) {
-                e.preventDefault();
-                $('html, body').animate({
-                    scrollTop: target.offset().top - 20
-                }, 800);
-            }
-        });
-    });
-    </script>
 {% endblock %}

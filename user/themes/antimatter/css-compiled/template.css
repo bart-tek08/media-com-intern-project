@@ -897,7 +897,7 @@ ul.pagination {
 .callout {
   background: #f6f6f6;
   border-radius: 10px;
-  padding: 1rem 0.938rem; }
+  padding: 1rem 0.938rem !important; }
   @media only all and (max-width: 59.938em) {
     .callout {
       text-align: center; } }

@@ -7,7 +7,6 @@
 {% block header_navigation %}
     <style>
 
-
     /* 2. TWOJE BAZOWE USTAWIENIA */
     body {
         font-size: 14px !important;
@@ -42,6 +41,8 @@
         margin-bottom: 15px !important;
     }
 
+    
+
     /* 5. FIX DLA LIST (tych z ikonkami) */
     ul {
         margin: 5px 0 !important;
@@ -50,6 +51,58 @@
     li {
         margin-bottom: 5px !important;
     }
+
+
+
+    header#header {
+        display: flex !important;
+        align-items: center !important; /* Środkuje logo i całe menu w pionie */
+        justify-content: space-between;
+        padding: 10px 2rem !important; /* Oddech dla belki */
+        min-height: 70px !important;    /* Dopasowanie do wysokości Twojego logo + margines */
+    }
+
+    /* 2. WYRÓWNANIE NAPISÓW W MENU */
+    #navbar ul.navigation {
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    #navbar ul.navigation li a {
+        display: block !important;
+        line-height: 50px !important; /* MUSI być równe wysokości Twojego logo (50px) */
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        position: relative !important; /* Baza dla kreseczek */
+    }
+
+    /* 3. NAPRAWA KRESECZEK (UNDERLINE) */
+    /* Antimatter używa :before do tych linii. Ustawiamy je na sztywno na dole napisu */
+    #navbar ul.navigation li a:before {
+        bottom: 0 !important;   /* Linia ląduje na dole pola o wysokości 50px */
+        margin: 0 !important;
+        top: auto !important;
+    }
+
+    /* 4. DOBICIE ODSTĘPÓW MODULARNYCH (te 15% długości strony) */
+    /* Skoro znalazłeś padding w .callout, uderzamy w niego tutaj */
+    .modular-section .callout {
+        padding: 1rem 1rem !important; 
+    }
+    
+    .modular-section {
+        padding: 5px 0 !important;
+    }
+
+    .modular-section .container {
+        border-radius: 15px !important;
+        padding: 20px !important;
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    
 
     /* RESPONSYWNOŚĆ KONTAKTU */
     @media (max-width: 600px) {

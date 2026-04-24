@@ -5,12 +5,18 @@
 
 {# NADPISUJEMY NAWIGACJĘ - USUNIĘTO SIDE-NAV #}
 {% block header_navigation %}
-    <style>
+<style>
     /* --- 1. TWOJE BAZOWE USTAWIENIA I KARTY --- */
     body {
         font-size: 14px !important;
         line-height: 1.4 !important;
         background-color: #f4f4f7 !important;
+        /* Dodane tło z poprzedniego kroku */
+        background-image: url("{{ url('theme://images/MBackground.jpg') }}") !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        background-size: cover !important;
+        background-position: center center !important;
     }
 
     p {
@@ -24,7 +30,7 @@
 
     .modular-page { padding-top: 10px !important; }
 
-    /* KONSTRUKCJA KARTY */
+    /* KONSTRUKCJA KARTY MODULARNEJ */
     .modular-section {
         padding: 5px 0 !important;
         border-bottom: none !important;
@@ -39,7 +45,6 @@
         margin-bottom: 15px !important;
     }
 
-    /* REDUKCJA PADDINGU Z PLIKU SCSS (_text.scss) */
     .modular-section .callout {
         padding: 1rem 1rem !important;
         background: transparent !important;
@@ -54,7 +59,51 @@
         margin-bottom: 5px !important;
     }
 
-    /* --- 2. NAGŁÓWEK: TYLKO DLA KOMPUTERÓW (Desktop) --- */
+    /* --- 2. NOWA KLASA KONTAKTU (ZDI oraz Internet i Telekomunikacja) --- */
+    .contact-card-unified {
+        background: #f9f9f9;
+        padding: 25px;
+        border-radius: 12px;
+        /* Pasek boczny na desktopie */
+        border-left: 6px solid #0056b3; 
+        border-top: none;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .contact-card-unified img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+    }
+
+    .contact-card-unified .info-wrapper {
+        display: flex;
+        gap: 40px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .contact-card-unified .personal-info, 
+    .contact-card-unified .company-data {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    /* Linia oddzielająca dane na desktopie */
+    .contact-card-unified .company-data {
+        border-left: 1px solid #ddd;
+        padding-left: 20px;
+    }
+
+    /* --- 3. NAGŁÓWEK: TYLKO DLA KOMPUTERÓW (Desktop) --- */
     @media (min-width: 640px) {
         header#header {
             display: flex !important;
@@ -72,13 +121,12 @@
 
         #navbar ul.navigation li a {
             display: block !important;
-            line-height: 50px !important; /* Wysokość Twojego logo */
+            line-height: 50px !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
             position: relative !important;
         }
 
-        /* NAPRAWA KRESECZEK POD NAPISAMI */
         #navbar ul.navigation li a:before {
             bottom: 0 !important;
             top: auto !important;
@@ -86,19 +134,44 @@
         }
     }
 
-    /* --- 3. NAGŁÓWEK: TYLKO DLA TELEFONÓW (Mobile) --- */
+    /* --- 4. WIDOK MOBILNY (Telefony) --- */
     @media (max-width: 639px) {
-        /* Przywracamy domyślne zachowanie Antimatter dla menu mobilnego */
+        /* Nagłówek i hamburger */
         header#header {
             display: block !important;
             min-height: auto !important;
         }
 
-        /* Ukrywamy listę tekstową, żeby nie nakładała się na logo */
         #navbar ul.navigation {
             display: none !important;
         }
 
+        /* Kontakt: Pasek na górę i wyśrodkowanie */
+        .contact-card-unified {
+            flex-direction: column;
+            text-align: center;
+            border-left: none; /* Usuwamy pasek z boku */
+            border-top: 6px solid #0056b3; /* Pasek ląduje na górze */
+            padding: 30px 15px;
+        }
+
+        .contact-card-unified img {
+            margin: 0 auto; /* Środkowanie zdjęcia nad tekstem */
+        }
+
+        .contact-card-unified .info-wrapper {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-card-unified .company-data {
+            border-left: none;
+            padding-left: 0;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        /* Kompatybilność ze starymi klasami jeśli jeszcze gdzieś zostały */
         .contact-card { 
             flex-direction: column !important; 
             text-align: center !important; 

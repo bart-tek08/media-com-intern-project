@@ -6,8 +6,7 @@
 {# NADPISUJEMY NAWIGACJĘ - USUNIĘTO SIDE-NAV #}
 {% block header_navigation %}
     <style>
-
-    /* 2. TWOJE BAZOWE USTAWIENIA */
+    /* --- 1. TWOJE BAZOWE USTAWIENIA I KARTY --- */
     body {
         font-size: 14px !important;
         line-height: 1.4 !important;
@@ -19,31 +18,34 @@
         font-size: 14px !important;
     }
 
-    /* 3. MNIEJSZE NAGŁÓWKI (Zablokowanie wzrostu czcionki) */
     h1 { font-size: 1.8rem !important; margin: 0 0 10px 0 !important; }
     h2 { font-size: 1.5rem !important; margin: 0 0 8px 0 !important; padding-top: 0 !important; }
     h3 { font-size: 1.2rem !important; margin: 0 0 6px 0 !important; }
 
-    /* 4. REDUKCJA PUSTEGO MIEJSCA */
     .modular-page { padding-top: 10px !important; }
-    
+
+    /* KONSTRUKCJA KARTY */
     .modular-section {
-        padding: 5px 0 !important; 
+        padding: 5px 0 !important;
         border-bottom: none !important;
     }
 
-    /* BIAŁE KARTY (Naprawa paddingu wewnętrznego) */
-    .modular-section .container, .modular-page > .container:first-child {
-        background: #ffffff;
-        padding: 15px 25px !important; /* Zmniejszone, żeby karta nie była "puchata" */
+    .modular-section .container, 
+    .modular-page > .container:first-child {
+        background: #ffffff !important;
+        padding: 20px 25px !important;
         border-radius: 15px !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
         margin-bottom: 15px !important;
     }
 
-    
+    /* REDUKCJA PADDINGU Z PLIKU SCSS (_text.scss) */
+    .modular-section .callout {
+        padding: 1rem 1rem !important;
+        background: transparent !important;
+    }
 
-    /* 5. FIX DLA LIST (tych z ikonkami) */
+    /* LISTY */
     ul {
         margin: 5px 0 !important;
         padding-left: 25px !important;
@@ -52,62 +54,60 @@
         margin-bottom: 5px !important;
     }
 
+    /* --- 2. NAGŁÓWEK: TYLKO DLA KOMPUTERÓW (Desktop) --- */
+    @media (min-width: 640px) {
+        header#header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 10px 2rem !important;
+            min-height: 70px !important;
+        }
 
+        #navbar ul.navigation {
+            display: flex !important;
+            align-items: center !important;
+            margin: 0 !important;
+        }
 
-    header#header {
-        display: flex !important;
-        align-items: center !important; /* Środkuje logo i całe menu w pionie */
-        justify-content: space-between;
-        padding: 10px 2rem !important; /* Oddech dla belki */
-        min-height: 70px !important;    /* Dopasowanie do wysokości Twojego logo + margines */
+        #navbar ul.navigation li a {
+            display: block !important;
+            line-height: 50px !important; /* Wysokość Twojego logo */
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            position: relative !important;
+        }
+
+        /* NAPRAWA KRESECZEK POD NAPISAMI */
+        #navbar ul.navigation li a:before {
+            bottom: 0 !important;
+            top: auto !important;
+            margin: 0 !important;
+        }
     }
 
-    /* 2. WYRÓWNANIE NAPISÓW W MENU */
-    #navbar ul.navigation {
-        display: flex !important;
-        align-items: center !important;
-        margin: 0 !important;
-    }
+    /* --- 3. NAGŁÓWEK: TYLKO DLA TELEFONÓW (Mobile) --- */
+    @media (max-width: 639px) {
+        /* Przywracamy domyślne zachowanie Antimatter dla menu mobilnego */
+        header#header {
+            display: block !important;
+            min-height: auto !important;
+        }
 
-    #navbar ul.navigation li a {
-        display: block !important;
-        line-height: 50px !important; /* MUSI być równe wysokości Twojego logo (50px) */
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        position: relative !important; /* Baza dla kreseczek */
-    }
+        /* Ukrywamy listę tekstową, żeby nie nakładała się na logo */
+        #navbar ul.navigation {
+            display: none !important;
+        }
 
-    /* 3. NAPRAWA KRESECZEK (UNDERLINE) */
-    /* Antimatter używa :before do tych linii. Ustawiamy je na sztywno na dole napisu */
-    #navbar ul.navigation li a:before {
-        bottom: 0 !important;   /* Linia ląduje na dole pola o wysokości 50px */
-        margin: 0 !important;
-        top: auto !important;
-    }
-
-    /* 4. DOBICIE ODSTĘPÓW MODULARNYCH (te 15% długości strony) */
-    /* Skoro znalazłeś padding w .callout, uderzamy w niego tutaj */
-    .modular-section .callout {
-        padding: 1rem 1rem !important; 
-    }
-    
-    .modular-section {
-        padding: 5px 0 !important;
-    }
-
-    .modular-section .container {
-        border-radius: 15px !important;
-        padding: 20px !important;
-        background: #fff;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-
-    
-
-    /* RESPONSYWNOŚĆ KONTAKTU */
-    @media (max-width: 600px) {
-        .contact-card { flex-direction: column !important; text-align: center; }
-        .contact-card div { display: flex; flex-direction: column; align-items: center; }
+        .contact-card { 
+            flex-direction: column !important; 
+            text-align: center !important; 
+        }
+        .contact-card div { 
+            display: flex !important; 
+            flex-direction: column !important; 
+            align-items: center !important; 
+        }
     }
 </style>
     

@@ -1,96 +1,137 @@
 {% extends 'partials/base.html.twig' %}
 
 {% set show_onpage_menu = header.onpage_menu == true or header.onpage_menu is null %}
-{% macro pageLinkName(text) %}{{ text|lower|replace({' ':'-'}) }}{% endmacro %}
+{% macro pageLinkName(text) %}{{ text|lower|replace({' ':'-', 'ą':'a', 'ć':'c', 'ę':'e', 'ł':'l', 'ń':'n', 'ó':'o', 'ś':'s', 'ź':'z', 'ż':'z'}) }}{% endmacro %}
 
-{# NADPISUJEMY NAWIGACJĘ TYLKO DLA TEJ STRONY #}
+{# NADPISUJEMY NAWIGACJĘ - USUNIĘTO SIDE-NAV #}
 {% block header_navigation %}
-    {% if show_onpage_menu %}
-        <style>
-  .side-nav-fixed {
-        position: fixed;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+    <style>
+    /* --- 1. TWOJE BAZOWE USTAWIENIA I KARTY --- */
+    body {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        background-color: #f4f4f7 !important;
     }
 
-    /* STAN DOMYŚLNY - Tekst zawsze biały */
-    .side-nav-fixed a {
-        background: #0056b3; /* Ten niebieski co masz teraz */
-        color: #1bb3e9 !important; /* Wymuszona biel czcionki */
-        padding: 15px 25px;
-        text-decoration: none !important;
-        border-radius: 8px;
-        font-weight: 800;
-        min-width: 160px;
-        text-align: center;
-        transition: 0.3s ease;
-        font-size: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        display: block;
+    p {
+        margin-bottom: 8px !important;
+        font-size: 14px !important;
     }
 
-    /* STAN PO NAJECHANIU - Niebieski robi się odrobinę lżejszy, tekst biały */
-    .side-nav-fixed a:hover { 
-        background: #1bb3e9 !important; 
-        color: #ffffff !important;
-        transform: translateX(10px);
+    h1 { font-size: 1.8rem !important; margin: 0 0 10px 0 !important; }
+    h2 { font-size: 1.5rem !important; margin: 0 0 8px 0 !important; padding-top: 0 !important; }
+    h3 { font-size: 1.2rem !important; margin: 0 0 6px 0 !important; }
+
+    .modular-page { padding-top: 10px !important; }
+
+    /* KONSTRUKCJA KARTY */
+    .modular-section {
+        padding: 5px 0 !important;
+        border-bottom: none !important;
     }
 
-    /* STAN KLIKNIĘTY / AKTYWNY - Ciemniejszy niebieski, tekst biały */
-    .side-nav-fixed a.active,
-    .side-nav-fixed a:active,
-    .side-nav-fixed a:focus {
-        background: #003d80 !important; /* Wyraźnie ciemniejszy odcień */
-        color: #ffffff !important;      /* Tekst nadal biały */
-        box-shadow: inset 0 3px 7px rgba(0,0,0,0.4) !important; /* Efekt wciśnięcia */
-        transform: translateX(5px);
+    .modular-section .container, 
+    .modular-page > .container:first-child {
+        background: #ffffff !important;
+        padding: 20px 25px !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+        margin-bottom: 15px !important;
     }
 
-        </style>
+    /* REDUKCJA PADDINGU Z PLIKU SCSS (_text.scss) */
+    .modular-section .callout {
+        padding: 1rem 1rem !important;
+        background: transparent !important;
+    }
 
-        <nav class="side-nav-fixed">
-            {% for module in page.collection() %}
-                <a href="#{{ _self.pageLinkName(module.menu) }}">{{ module.menu }}</a>
-            {% endfor %}
-        </nav>
-    {% endif %}
+    /* LISTY */
+    ul {
+        margin: 5px 0 !important;
+        padding-left: 25px !important;
+    }
+    li {
+        margin-bottom: 5px !important;
+    }
+
+    /* --- 2. NAGŁÓWEK: TYLKO DLA KOMPUTERÓW (Desktop) --- */
+    @media (min-width: 640px) {
+        header#header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 10px 2rem !important;
+            min-height: 70px !important;
+        }
+
+        #navbar ul.navigation {
+            display: flex !important;
+            align-items: center !important;
+            margin: 0 !important;
+        }
+
+        #navbar ul.navigation li a {
+            display: block !important;
+            line-height: 50px !important; /* Wysokość Twojego logo */
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            position: relative !important;
+        }
+
+        /* NAPRAWA KRESECZEK POD NAPISAMI */
+        #navbar ul.navigation li a:before {
+            bottom: 0 !important;
+            top: auto !important;
+            margin: 0 !important;
+        }
+    }
+
+    /* --- 3. NAGŁÓWEK: TYLKO DLA TELEFONÓW (Mobile) --- */
+    @media (max-width: 639px) {
+        /* Przywracamy domyślne zachowanie Antimatter dla menu mobilnego */
+        header#header {
+            display: block !important;
+            min-height: auto !important;
+        }
+
+        /* Ukrywamy listę tekstową, żeby nie nakładała się na logo */
+        #navbar ul.navigation {
+            display: none !important;
+        }
+
+        .contact-card { 
+            flex-direction: column !important; 
+            text-align: center !important; 
+        }
+        .contact-card div { 
+            display: flex !important; 
+            flex-direction: column !important; 
+            align-items: center !important; 
+        }
+    }
+</style>
     
-    {# Zachowujemy też oryginalne menu górne, żeby nie zniknęło całkowicie #}
     {{ parent() }}
 {% endblock %}
 
 {% block content %}
     <div class="modular-page">
-        <div class="container" style="padding-top: 50px;">
+        {# Główna treść strony (jeśli istnieje) #}
+        <div class="container">
             {{ page.content|raw }}
         </div>
         
+        {# Sekcje modularne jako osobne karty #}
         {% for module in page.collection() %}
-            <div id="{{ _self.pageLinkName(module.menu) }}" class="modular-section" style="padding: 80px 0; border-bottom: 1px solid #eee;">
+            <div id="{{ _self.pageLinkName(module.menu) }}" class="modular-section">
                 <div class="container">
                     {{ module.content|raw }}
                 </div>
             </div>
         {% endfor %}
     </div>
+{% endblock %}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $('a[href^="#"]').on('click', function(e) {
-            e.preventDefault();
-            var target = $(this.hash);
-            if (target.length) {
-                $('html, body').animate({
-                    scrollTop: target.offset().top - 20
-                }, 800);
-            }
-        });
-    });
-    </script>
+{% block bottom %}
+    {{ parent() }}
 {% endblock %}

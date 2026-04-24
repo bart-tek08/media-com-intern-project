@@ -11,7 +11,6 @@
         font-size: 14px !important;
         line-height: 1.4 !important;
         background-color: #f4f4f7 !important;
-        /* Dodane tło z poprzedniego kroku */
         background-image: url("{{ url('theme://images/MBackground.jpg') }}") !important;
         background-repeat: no-repeat !important;
         background-attachment: fixed !important;
@@ -30,7 +29,6 @@
 
     .modular-page { padding-top: 10px !important; }
 
-    /* KONSTRUKCJA KARTY MODULARNEJ */
     .modular-section {
         padding: 5px 0 !important;
         border-bottom: none !important;
@@ -50,7 +48,6 @@
         background: transparent !important;
     }
 
-    /* LISTY */
     ul {
         margin: 5px 0 !important;
         padding-left: 25px !important;
@@ -59,14 +56,12 @@
         margin-bottom: 5px !important;
     }
 
-    /* --- 2. NOWA KLASA KONTAKTU (ZDI oraz Internet i Telekomunikacja) --- */
+    /* --- 2. ZUNIFIKOWANA KLASA KONTAKTU (Desktop - powyżej 960px) --- */
     .contact-card-unified {
         background: #f9f9f9;
         padding: 25px;
         border-radius: 12px;
-        /* Pasek boczny na desktopie */
         border-left: 6px solid #0056b3; 
-        border-top: none;
         display: flex;
         align-items: center;
         gap: 30px;
@@ -88,7 +83,7 @@
         display: flex;
         gap: 40px;
         width: 100%;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .contact-card-unified .personal-info, 
@@ -97,14 +92,14 @@
         min-width: 200px;
     }
 
-    /* Linia oddzielająca dane na desktopie */
+    /* Pionowa kreska na desktopie obok danych */
     .contact-card-unified .company-data {
         border-left: 1px solid #ddd;
         padding-left: 20px;
     }
 
-    /* --- 3. NAGŁÓWEK: TYLKO DLA KOMPUTERÓW (Desktop) --- */
-    @media (min-width: 640px) {
+    /* --- 3. NAGŁÓWEK: DESKTOP --- */
+    @media (min-width: 961px) {
         header#header {
             display: flex !important;
             align-items: center !important;
@@ -126,60 +121,55 @@
             padding-bottom: 0 !important;
             position: relative !important;
         }
+    }
 
-        #navbar ul.navigation li a:before {
-            bottom: 0 !important;
-            top: auto !important;
-            margin: 0 !important;
+    /* --- 4. UKŁAD POŚREDNI (960px - 768px): Zdjęcie z boku, dane w pionie z kreską pomiędzy --- */
+    @media (max-width: 960px) {
+        .contact-card-unified .info-wrapper {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .contact-card-unified .personal-info {
+            padding-bottom: 15px;
+        }
+
+        /* KRESECZKA: Zamienia się w poziomą MIĘDZY blokami informacji */
+        .contact-card-unified .company-data {
+            border-left: none;
+            border-top: 1px solid #ddd;
+            padding-left: 0;
+            padding-top: 15px;
+            width: 100%;
         }
     }
 
-    /* --- 4. WIDOK MOBILNY (Telefony) --- */
-    @media (max-width: 639px) {
-        /* Nagłówek i hamburger */
+    /* --- 5. WIDOK MOBILNY (Poniżej 767px): Centrowanie wszystkiego --- */
+    @media (max-width: 767px) {
         header#header {
             display: block !important;
-            min-height: auto !important;
         }
 
         #navbar ul.navigation {
             display: none !important;
         }
 
-        /* Kontakt: Pasek na górę i wyśrodkowanie */
         .contact-card-unified {
             flex-direction: column;
             text-align: center;
-            border-left: none; /* Usuwamy pasek z boku */
-            border-top: 6px solid #0056b3; /* Pasek ląduje na górze */
+            border-left: none; 
+            border-top: 6px solid #0056b3; 
             padding: 30px 15px;
         }
 
         .contact-card-unified img {
-            margin: 0 auto; /* Środkowanie zdjęcia nad tekstem */
+            margin: 0 auto 15px auto; 
         }
 
-        .contact-card-unified .info-wrapper {
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .contact-card-unified .company-data {
-            border-left: none;
-            padding-left: 0;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-
-        /* Kompatybilność ze starymi klasami jeśli jeszcze gdzieś zostały */
+        /* Kompatybilność wsteczna */
         .contact-card { 
             flex-direction: column !important; 
             text-align: center !important; 
-        }
-        .contact-card div { 
-            display: flex !important; 
-            flex-direction: column !important; 
-            align-items: center !important; 
         }
     }
 </style>

@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-	background: $page-bg;
+	background: #f4f4f7 url("../images/background.jpg") no-repeat fixed center center / cover !important;
 	color: $core-text;
 	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
